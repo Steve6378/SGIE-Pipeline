@@ -3,7 +3,7 @@
 ## Project Overview
 Building a unified pipeline to analyze Steam game reviews, combining web scraping, credibility detection, aspect-based sentiment analysis (ABSA), and emotion classification.
 
-## Date: January 2025
+## Date: 26 May 2025
 
 ### Initial Analysis & Design Decisions
 
