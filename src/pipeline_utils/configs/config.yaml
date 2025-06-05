@@ -1,0 +1,78 @@
+dataset:
+  path: "emotions_dataset_cleaned.csv"
+  text_column: "review"
+  label_column: "sentiment_score"
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+  max_length: 512
+  random_seed: 42
+
+emotions:
+  - joy
+  - sadness
+  - anger
+  - fear
+  - surprise
+  - love
+
+models:
+  gpt2:
+    name: "gpt2-medium"
+    batch_size: 4
+    gradient_accumulation_steps: 4
+    learning_rate: 0.00003
+    num_epochs: 10
+    warmup_steps: 1000
+    weight_decay: 0.01
+    use_lora: true
+    lora_rank: 16
+    lora_alpha: 16
+    
+  roberta:
+    name: "roberta-base"
+    batch_size: 6
+    gradient_accumulation_steps: 4
+    learning_rate: 0.00003
+    num_epochs: 10
+    warmup_steps: 1000
+    weight_decay: 0.01
+    use_lora: true
+    lora_rank: 16
+    lora_alpha: 16
+    dropout_rate: 0.1
+    
+  deberta:
+    name: "microsoft/deberta-v3-base"
+    batch_size: 6
+    gradient_accumulation_steps: 4
+    learning_rate: 0.00003
+    num_epochs: 10
+    warmup_steps: 1000
+    weight_decay: 0.01
+    use_lora: true
+    lora_rank: 16
+    lora_alpha: 16
+    dropout_rate: 0.1
+    use_disentangled_attention: true
+
+training:
+  early_stopping_patience: 5
+  early_stopping_metric: "val_loss"
+  save_best_only: true
+  eval_steps: 1000
+  logging_steps: 50
+  save_steps: 500
+  fp16: true
+  gradient_checkpointing: true
+  max_grad_norm: 1.0
+
+ensemble:
+  penalty_weight: 0.3
+  voting_method: "soft"
+
+paths:
+  data_dir: "./data"
+  checkpoint_dir: "./checkpoints"
+  results_dir: "./results"
+  log_dir: "./logs"
